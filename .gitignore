@@ -1,0 +1,27 @@
+# Local dependencies
+node_modules/
+scripts/node_modules/
+__pycache__/
+scripts/__pycache__/
+
+# Generated build artifacts — these patterns have NO directory prefix on
+# purpose, so they apply at every level. The documented commands are run from
+# the repository root (e.g. `python3 scripts/strip_highlightcs.py mynote.docx`),
+# which writes the output to the root, not into scripts/.
+*.docx
+*.pdf
+*.jpg
+*.jpeg
+*.png
+
+# Per-run comment files. The committed example is the one exception.
+comments*.json
+!**/scripts/example_comments.json
+
+# The README screenshot is generated from the placeholder example only —
+# it contains no real paper and is committed deliberately.
+!**/docs/example.png
+
+# OS/editor files
+.DS_Store
+Thumbs.db

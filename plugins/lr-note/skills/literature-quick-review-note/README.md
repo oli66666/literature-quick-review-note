@@ -8,8 +8,12 @@ A Claude/Codex-compatible skill for producing a condensed academic reading note 
 
 ## Installation
 
-**As a plugin (one command).** This skill is published as a Claude plugin
-marketplace:
+Install the **whole folder**, `scripts/` included. The margin comments are
+written by two Python scripts in there that manipulate the document's OOXML
+directly, and they have no fallback. A `SKILL.md`-only install still produces a
+note, but without comments — see [Copying only `SKILL.md`](#copying-only-skillmd).
+
+**Claude Code, as a plugin (one command).**
 
 ```
 /plugin install lr-note@oli66666/literature-quick-review-note
@@ -19,12 +23,14 @@ It is then invoked as `/lr-note:literature-quick-review-note`, or just by asking
 for a 速览笔记 with a paper attached. Plugin skills are always namespaced by the
 plugin they come from, which is where the `lr-note:` prefix comes from.
 
-**By hand.** Copy this folder — the one containing `SKILL.md` — into
-`~/.claude/skills/` (personal) or a project's `.claude/skills/` (project-only).
-Copy the **whole folder**: `scripts/` must sit beside `SKILL.md`, because the two
-Python scripts that write the Word margin comments have no fallback. A skill
-installed as `SKILL.md` alone still produces a note, but without comments — see
-[Copying only `SKILL.md`](#copying-only-skillmd).
+**Claude Code, by hand.** Copy this folder into `~/.claude/skills/` (personal) or
+a project's `.claude/skills/` (project-only).
+
+**Claude desktop app / claude.ai.** These install from an uploaded ZIP, not from
+a repository URL. Compress *this* folder on its own — the ZIP's top level should
+be one folder containing `SKILL.md`, `scripts/` and `docs/` — then go to
+[claude.ai/customize/skills](https://claude.ai/customize/skills) → **+** →
+**Create skill** → **Upload a skill**.
 
 **Other hosts.** Codex uses its own skills location; the folder contents are the
 same. Anything else can run the scripts directly.

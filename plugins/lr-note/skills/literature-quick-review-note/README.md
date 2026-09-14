@@ -111,7 +111,8 @@ The skill processes multiple papers **strictly one at a time**: it finishes, ver
 
 ## Versioning
 
-The version number lives in the `version:` field of `SKILL.md`'s frontmatter.
+The version number lives under `metadata.version` in `SKILL.md`'s frontmatter —
+not as a top-level key, which the skill format rejects.
 [`CHANGELOG.md`](CHANGELOG.md) records what each release contains and, where a
 rule is not self-evident, why it is there.
 

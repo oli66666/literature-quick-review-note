@@ -1,7 +1,8 @@
 ---
 name: literature-quick-review-note
-version: 1.0.0
 description: "Build a condensed \"quick overview\" (速览) intensive-reading note for an academic paper as a WPS-compatible Word (.docx) file, with real margin comments grounded in genuine literature. Use when the user asks for a 文献速览/精读笔记 quick-overview version of a paper (as distinct from a full verbose 精读 note)."
+metadata:
+  version: 1.0.0
 ---
 
 # 文献速览笔记 (Literature Quick-Overview Note)

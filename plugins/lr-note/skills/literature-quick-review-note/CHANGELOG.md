@@ -1,8 +1,10 @@
 # Changelog
 
 All notable changes to this skill are recorded here. The version number lives
-in the `version:` field of `SKILL.md`'s frontmatter, and the two are expected to
-match.
+under `metadata.version` in `SKILL.md`'s frontmatter, and the two are expected to
+match. It must not be a top-level frontmatter key: the skill format permits only
+`name`, `description`, `license`, `allowed-tools`, `metadata` and `compatibility`
+there, and an unexpected key fails validation on upload.
 
 This project follows [Semantic Versioning](https://semver.org/) as applied to a
 skill rather than a library:

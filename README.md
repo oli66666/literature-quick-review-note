@@ -87,8 +87,10 @@ check — LibreOffice and Poppler. No API key, no bundled paper, no personal pat
 
 ## Versioning
 
-The version number lives in the `version:` field of the skill's `SKILL.md`
-frontmatter and in `plugin.json`.
+The version number lives under `metadata.version` in the skill's `SKILL.md`
+frontmatter and in `plugin.json`. (Only `name` and `description` are permitted at
+the top level of a `SKILL.md` frontmatter; a stray top-level key is rejected on
+upload.)
 [`CHANGELOG.md`](plugins/lr-note/skills/literature-quick-review-note/CHANGELOG.md)
 records what each release contains and, where a rule is not self-evident, why it
 is there.

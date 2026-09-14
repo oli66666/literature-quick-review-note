@@ -38,13 +38,16 @@ Or install it as a plain skill instead of a plugin: copy
 
 These do not install from a repository URL; they take an uploaded ZIP.
 
-1. Download this repository (**Code → Download ZIP**) and unpack it.
-2. Find `plugins/lr-note/skills/literature-quick-review-note/` and compress
-   **that folder** on its own — not the whole repository. You should end up with
-   a ZIP whose top level is a folder containing `SKILL.md`, `scripts/` and
-   `docs/`.
-3. Go to [claude.ai/customize/skills](https://claude.ai/customize/skills) →
-   **+** → **Create skill** → **Upload a skill**, and upload that ZIP.
+1. Download `literature-quick-review-note-skill-v1.0.0.zip` from the
+   [latest release](../../releases/latest).
+2. Go to [claude.ai/customize/skills](https://claude.ai/customize/skills) →
+   **+** → **Create skill** → **Upload a skill**, and upload that file.
+
+That ZIP contains the skill folder and nothing else, ready to upload as-is. If
+you would rather build it yourself, download the repository (**Code → Download
+ZIP**), then compress `plugins/lr-note/skills/literature-quick-review-note/` on
+its own — not the whole repository. The result should be a ZIP whose top level
+is one folder containing `SKILL.md`, `scripts/` and `docs/`.
 
 ### Other hosts
 
@@ -62,11 +65,12 @@ single step:
   repository and copy `plugins/lr-note/skills/literature-quick-review-note/`
   into `~/.claude/skills/`. Either way the scripts come along.
 - **Claude desktop app or claude.ai** — you cannot write into their account
-  skills yourself, but you can do the tedious part: fetch the repository,
-  extract `plugins/lr-note/skills/literature-quick-review-note/`, compress that
-  folder into a ZIP, hand them the file, and point them at
-  [claude.ai/customize/skills](https://claude.ai/customize/skills) →
-  **+** → **Create skill** → **Upload a skill**.
+  skills yourself, so point them at the ready-made ZIP on the
+  [latest release](../../releases/latest) and walk them through
+  [claude.ai/customize/skills](https://claude.ai/customize/skills) → **+** →
+  **Create skill** → **Upload a skill**. If you cannot reach the release, build
+  the same ZIP yourself from
+  `plugins/lr-note/skills/literature-quick-review-note/` and hand them the file.
 
 **Do not** install this by copying `SKILL.md` alone into their account skills
 and stopping there. It is the tempting shortcut, because `SKILL.md` is a single

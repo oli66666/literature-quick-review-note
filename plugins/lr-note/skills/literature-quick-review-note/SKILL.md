@@ -221,7 +221,7 @@ a few levels down. The skill itself is the innermost folder — the one holding
 ├── README.md                          — repository front page and install commands
 ├── LICENSE
 ├── .claude-plugin/marketplace.json    — makes the repo installable as a marketplace
-└── plugins/literature-quick-review-note/
+└── plugins/lr-note/
     ├── .claude-plugin/plugin.json     — plugin manifest (name, version, author)
     └── skills/literature-quick-review-note/   ← the skill folder
         ├── SKILL.md                   — this file

@@ -12,13 +12,12 @@ A Claude/Codex-compatible skill for producing a condensed academic reading note 
 marketplace:
 
 ```
-/plugin marketplace add oli66666/literature-quick-review-note
-/plugin install literature-quick-review-note
+/plugin install lr-note@oli66666/literature-quick-review-note
 ```
 
-It is then invoked as `/literature-quick-review-note:literature-quick-review-note`,
-or just by asking for a 速览笔记 with a paper attached. Plugin skills are always
-namespaced, which is why the name appears twice.
+It is then invoked as `/lr-note:literature-quick-review-note`, or just by asking
+for a 速览笔记 with a paper attached. Plugin skills are always namespaced by the
+plugin they come from, which is where the `lr-note:` prefix comes from.
 
 **By hand.** Copy this folder — the one containing `SKILL.md` — into
 `~/.claude/skills/` (personal) or a project's `.claude/skills/` (project-only).

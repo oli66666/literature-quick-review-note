@@ -7,24 +7,23 @@ anchored Word margin comments.
 This repository is packaged as a Claude plugin marketplace, so it can be
 installed with one command. The skill itself, with its full documentation,
 lives in
-[`plugins/literature-quick-review-note/skills/literature-quick-review-note/`](plugins/literature-quick-review-note/skills/literature-quick-review-note/)
-— start with [its README](plugins/literature-quick-review-note/skills/literature-quick-review-note/README.md).
+[`plugins/lr-note/skills/literature-quick-review-note/`](plugins/lr-note/skills/literature-quick-review-note/)
+— start with [its README](plugins/lr-note/skills/literature-quick-review-note/README.md).
 
-![Example output](plugins/literature-quick-review-note/skills/literature-quick-review-note/docs/example.png)
+![Example output](plugins/lr-note/skills/literature-quick-review-note/docs/example.png)
 
 *Placeholder content — no real paper is involved.*
 
 ## Install
 
-In Claude Code, add this repository as a marketplace and install the plugin:
+In Claude Code:
 
 ```
-/plugin marketplace add oli66666/literature-quick-review-note
-/plugin install literature-quick-review-note
+/plugin install lr-note@oli66666/literature-quick-review-note
 ```
 
-The skill is then invoked as `/literature-quick-review-note:literature-quick-review-note`,
-or simply by asking for a 速览笔记 with a paper attached.
+The skill is then invoked as `/lr-note:literature-quick-review-note`, or simply by
+asking for a 速览笔记 with a paper attached.
 
 Prefer to install it by hand, or not using a host that supports plugins? Copy the
 skill folder — the innermost one, containing `SKILL.md` — into `~/.claude/skills/`.

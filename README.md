@@ -45,25 +45,62 @@ document's OOXML directly. A `SKILL.md`-only install still produces a note, but
 a plainer one, and the shortfall is easy to mistake for the skill being weak
 rather than half-installed.
 
+Which route to take:
+
+| You use | Route | Updates |
+|---|---|---|
+| Claude desktop app, Cowork | [Plugin from this repository](#claude-desktop-app-cowork-recommended) (recommended) | One click on **Update** |
+| Claude Code | [Plugin from this repository](#claude-code) | Automatic once auto-update is on |
+| claude.ai chat only | [Upload the ZIPs](#claudeai-chat-upload-a-zip) | Re-upload each new version by hand |
+
+Both plugin routes install the Chinese and the English skill together, scripts
+included. Plugins are not available in plain chat, which is the only reason to
+use the ZIP route.
+
+### Claude desktop app (Cowork, recommended)
+
+1. Open **Customize → Plugins**, then **Add → Add from a repository**.
+2. Enter `oli66666/literature-quick-review-note`.
+3. Install the **Lr note** plugin that appears.
+
+Open the installed plugin to check that it lists
+`literature-quick-review-note-cn` and `literature-quick-review-note-en`.
+
+To pick up a new version, use **Update** on the marketplace in
+**Customize → Plugins**. Cowork can also sync new versions automatically, but
+only when the Claude GitHub App has access to this repository; without it, the
+plugin still installs and works, and you may see a notice that auto-sync needs
+that access.
+
 ### Claude Code
 
+Add this repository as a marketplace, then install the plugin from it:
+
 ```
-/plugin install lr-note@oli66666/literature-quick-review-note
+/plugin marketplace add oli66666/literature-quick-review-note
+/plugin install lr-note@literature-quick-review-note
 ```
 
-This installs both skills, invoked as `/lr-note:literature-quick-review-note-cn`
-and `/lr-note:literature-quick-review-note-en`, or just by asking for a
+The part after `@` is the marketplace's name, `literature-quick-review-note`,
+not the GitHub path. The skills are then invoked as
+`/lr-note:literature-quick-review-note-cn` and
+`/lr-note:literature-quick-review-note-en`, or just by asking for a
 速览笔记 / quick-overview note with a paper attached.
 
-Or install either one as a plain skill instead of a plugin: copy
+Claude Code leaves auto-update off for marketplaces like this one. To receive
+new versions, turn it on under `/plugin` → **Marketplaces**, or update by hand
+with `/plugin marketplace update literature-quick-review-note`.
+
+Or install either skill as a plain skill instead of a plugin: copy
 `plugins/lr-note/skills/literature-quick-review-note-cn/` or
 `plugins/lr-note/skills/literature-quick-review-note-en/` into
-`~/.claude/skills/` (personal) or a project's `.claude/skills/`.
+`~/.claude/skills/` (personal) or a project's `.claude/skills/`. A copied skill
+does not update itself.
 
-### Claude desktop app / claude.ai
+### claude.ai chat: upload a ZIP
 
-These do not install from a repository URL; they take an uploaded ZIP, one per
-skill.
+Chat does not install from a repository; it takes an uploaded ZIP, one per
+skill. Code execution must be turned on in your settings.
 
 1. Download `literature-quick-review-note-cn-skill-v2.0.0.zip` and/or
    `literature-quick-review-note-en-skill-v1.0.0.zip` from the
@@ -93,11 +130,15 @@ You were probably asked something like "install the skill from this repo." First
 establish whether they want the Chinese-output skill, the English-output skill,
 or both. Then:
 
-- **Claude Code** — run the `/plugin install` command above (installs both), or
-  clone the repository and copy the wanted skill folder(s) from
-  `plugins/lr-note/skills/` into `~/.claude/skills/`. Either way the scripts
-  come along.
-- **Claude desktop app or claude.ai** — you cannot write into their account
+- **Claude desktop app (Cowork)** — walk them through adding this repository
+  as a plugin marketplace and installing **Lr note**, as described above. You
+  cannot do this for them.
+- **Claude Code** — run the two commands above: `/plugin marketplace add`
+  first, then `/plugin install lr-note@literature-quick-review-note`
+  (installs both). Or clone the repository and copy the wanted skill folder(s)
+  from `plugins/lr-note/skills/` into `~/.claude/skills/`. Either way the
+  scripts come along.
+- **claude.ai chat** — you cannot write into their account
   skills yourself, so point them at the ready-made ZIPs on the
   [latest release](../../releases/latest) and walk them through
   [claude.ai/customize/skills](https://claude.ai/customize/skills) → **+** →

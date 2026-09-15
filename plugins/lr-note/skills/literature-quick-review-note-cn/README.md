@@ -15,22 +15,33 @@ written by two Python scripts in there that manipulate the document's OOXML
 directly, and they have no fallback. A `SKILL.md`-only install still produces a
 note, but without comments — see [Copying only `SKILL.md`](#copying-only-skillmd).
 
-**Claude Code, as a plugin (one command).**
+**Claude desktop app (Cowork), as a plugin (recommended).** Open **Customize →
+Plugins → Add → Add from a repository**, enter
+`oli66666/literature-quick-review-note`, and install **Lr note**. It installs
+both language versions. To pick up a new version, use **Update** on the
+marketplace; automatic sync needs the Claude GitHub App to have access to the
+repository.
+
+**Claude Code, as a plugin.**
 
 ```
-/plugin install lr-note@oli66666/literature-quick-review-note
+/plugin marketplace add oli66666/literature-quick-review-note
+/plugin install lr-note@literature-quick-review-note
 ```
 
-This installs both language versions. This one is invoked as
+The part after `@` is the marketplace's name, not the GitHub path. This
+installs both language versions. This one is invoked as
 `/lr-note:literature-quick-review-note-cn`, or just by asking in Chinese for a
 速览笔记 with a paper attached. Plugin skills are always namespaced by the
-plugin they come from, which is where the `lr-note:` prefix comes from.
+plugin they come from, which is where the `lr-note:` prefix comes from. To
+receive new versions, turn on auto-update for the marketplace under `/plugin` →
+**Marketplaces**.
 
 **Claude Code, by hand.** Copy this folder into `~/.claude/skills/` (personal) or
 a project's `.claude/skills/` (project-only).
 
-**Claude desktop app / claude.ai.** These install from an uploaded ZIP, not from
-a repository URL. Compress *this* folder on its own — the ZIP's top level should
+**claude.ai chat.** Plugins are not available in chat, so upload a ZIP instead.
+Chat does not install from a repository URL. Compress *this* folder on its own — the ZIP's top level should
 be one folder containing `SKILL.md`, `scripts/` and `docs/` — then go to
 [claude.ai/customize/skills](https://claude.ai/customize/skills) → **+** →
 **Create skill** → **Upload a skill**.

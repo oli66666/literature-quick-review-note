@@ -1,6 +1,8 @@
-# Literature Quick-Overview Note
+# Literature Quick-Overview Note (English)
 
-A Claude/Codex-compatible skill for producing a condensed academic reading note as a WPS-compatible Word (`.docx`) file. It also includes portable Node.js and Python scripts for building, commenting, validating, and rendering the document.
+A Claude/Codex-compatible skill for producing a condensed academic reading note as a WPS-compatible Word (`.docx`) file, written entirely in English. It also includes portable Node.js and Python scripts for building, commenting, validating, and rendering the document.
+
+This is the English-output sibling of [`literature-quick-review-note-cn`](../literature-quick-review-note-cn/): same repository, same plugin, same underlying scripts — the difference is the language the note itself is written in, not what the note does.
 
 ![Example output](docs/example.png)
 
@@ -19,9 +21,12 @@ note, but without comments — see [Copying only `SKILL.md`](#copying-only-skill
 /plugin install lr-note@oli66666/literature-quick-review-note
 ```
 
-It is then invoked as `/lr-note:literature-quick-review-note`, or just by asking
-for a 速览笔记 with a paper attached. Plugin skills are always namespaced by the
-plugin they come from, which is where the `lr-note:` prefix comes from.
+This installs the whole `lr-note` plugin, which contains both this skill and
+its Chinese-output sibling. This one is invoked as
+`/lr-note:literature-quick-review-note-en`, or just by asking for an English
+quick-overview / quick-review reading note with a paper attached. Plugin
+skills are always namespaced by the plugin they come from, which is where the
+`lr-note:` prefix comes from.
 
 **Claude Code, by hand.** Copy this folder into `~/.claude/skills/` (personal) or
 a project's `.claude/skills/` (project-only).
@@ -39,7 +44,7 @@ same. Anything else can run the scripts directly.
 
 - Creates real Word Heading 1/2/3 styles for navigation.
 - Adds source-PDF page ranges to content headings.
-- Produces a condensed overview rather than a page-by-page translation.
+- Produces a condensed overview rather than a paragraph-by-paragraph restatement.
 - Adds genuine anchored Word margin comments — a feature most `.docx` libraries cannot write at all. Comment bodies are plain text; inline markers are stripped automatically with a note, since they only apply to the document body.
 - Handles multi-column comparison tables, block quotes, and `**bold**` / `*italic*` / `==highlight==` inline markers.
 - Includes a WPS compatibility fix, lightweight validation, and a render-and-look visual check.
@@ -52,7 +57,11 @@ Tested in both Claude and Codex. The scripts behave identically; note quality de
 
 ## Output language
 
-Notes are written in Chinese by design: the point is to let a Chinese-speaking researcher absorb an English paper quickly. `SKILL.md` and all scripts are in English and the formatting layer is language-agnostic, so adapting the output language means editing the prose templates in `SKILL.md`, not the pipeline.
+Notes are written in English by design, regardless of what language the source paper is in — this skill exists for a reader who wants their reading notes in English. Its sibling, [`literature-quick-review-note-cn`](../literature-quick-review-note-cn/), writes the note in Chinese instead, for a Chinese-speaking reader absorbing an English (or other-language) paper quickly. Installing the `lr-note` plugin gives you both. `SKILL.md` and all scripts are in English either way, and the formatting layer is language-agnostic — the two skills share every script except one CLI default in `insert_comments.py` (the margin-comment author label).
+
+When both are installed, the choice between them follows one rule, written into both skills' descriptions: an output language the user names explicitly wins ("做英文版笔记" comes here even though the request is in Chinese); otherwise the note follows the language of the request. This is Claude's judgement from the descriptions, not a hard switch, so invoke a skill by name when it must be one or the other.
+
+Note files are named after the paper with a language suffix: `Smith2024_EN.docx` here, `Smith2024_CN.docx` from the Chinese skill, so the two never overwrite each other.
 
 ## Requirements
 
@@ -118,4 +127,4 @@ rule is not self-evident, why it is there.
 
 ## License
 
-MIT License. See [`LICENSE`](LICENSE).
+MIT License. See [`LICENSE`](../../../../LICENSE).

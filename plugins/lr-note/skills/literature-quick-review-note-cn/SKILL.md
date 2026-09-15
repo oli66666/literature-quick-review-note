@@ -1,13 +1,15 @@
 ---
-name: literature-quick-review-note
-description: "Build a condensed \"quick overview\" (速览) intensive-reading note for an academic paper as a WPS-compatible Word (.docx) file, with real margin comments grounded in genuine literature. Use when the user asks for a 文献速览/精读笔记 quick-overview version of a paper (as distinct from a full verbose 精读 note)."
+name: literature-quick-review-note-cn
+description: "Build a condensed \"quick overview\" (速览) intensive-reading note for an academic paper as a WPS-compatible Word (.docx) file written in Chinese, with real margin comments grounded in genuine literature. Use when the user asks for a 文献速览/精读笔记 quick-overview version of a paper (as distinct from a full verbose 精读 note) AND either explicitly wants the note in Chinese, or names no output language and writes the request in Chinese. If the user explicitly asks for the note in English (in any request language, e.g. 做英文版速览笔记), use literature-quick-review-note-en instead."
 metadata:
-  version: 1.0.0
+  version: 2.0.0
 ---
 
-# 文献速览笔记 (Literature Quick-Overview Note)
+# 文献速览笔记 (Literature Quick-Overview Note, Chinese output)
 
 This is a **condensed variant** of intensive-reading (精读) notes: the whole paper's framework and precise content, distilled — not a page-by-page translation. Use it when the user asks for a "速览" / "概括版" / "quick overview" style note, or references wanting "this version" of a note style they've approved before. If the user just says "精读" with no quick-overview signal, prefer a fuller methodology instead, if one is available.
+
+**Output language, and which of the two sibling skills applies.** This skill writes the note in Chinese. Its sibling in the same plugin, `literature-quick-review-note-en`, produces the same note in English. Decide between them in this order: (1) if the user explicitly names an output language ("做英文版笔记", "write the note in Chinese"), follow it, whatever language the request itself is written in; (2) if they name none, follow the language of the request — Chinese request, this skill; English request, the `-en` sibling. If the user invoked one of the two by name, use that one and do not second-guess it.
 
 This skill folder is self-contained: `scripts/` ships portable Node.js and Python utilities for the document pipeline (build helpers, the WPS compatibility fix, comment insertion, validation, rendering). The `SKILL.md` instruction format is directly usable by Claude and Codex when installed as a compatible skill; other AI systems may require adapting the instruction file to their own format. The scripts themselves can be run independently.
 
@@ -181,7 +183,7 @@ The payoff is not only cost. Extracted text shows **exact characters** — a mis
    - **Where every cross-paper comparison sits, and what it rests on.** First scan the body: has a comparison with another paper slipped in? **This matters most in batch mode** — the paper you finished an hour ago is still vivid and gets written into the next note's body almost without noticing. Move any such passage into a margin comment or cut it. Then check each comment's comparisons against the three conditions in structural rule 3: real, actually known, and grounded in a stated point of contact.
    - **Every claim attributed to the paper** that is actually your own inference. If the paper does not say it, it belongs in a hedged margin comment or in 评述, never in the body as if the authors argued it.
    Fix what the check surfaces, rebuild, and re-run validate. Then state in one line to the user what you verified — not a claim that it is perfect, but what was actually checked.
-8. **Deliver** the file to the user. If there's a way to write into the same folder as the source PDF, do so under the **same filename as the literature** (matching common project convention). Check first whether that folder already has an established convention — for example existing notes sitting in a `文献总结/` subfolder rather than beside the PDFs — and follow it. If overwriting an existing note, check its current modification time first and guard the write against a conflicting concurrent edit — the user may have opened the file to leave comments since you last touched it.
+8. **Deliver** the file to the user. If there's a way to write into the same folder as the source PDF, do so under the **same filename as the literature, plus the suffix `_CN`** (e.g. `Smith2024.pdf` → `Smith2024_CN.docx`). The suffix is not optional: the English-output sibling writes `Smith2024_EN.docx` for the same paper, and without it a Chinese and an English note on one paper would overwrite each other. Notes made before this convention (skill v1.x) carry no suffix; if you find one for the same paper, tell the user rather than silently leaving an unsuffixed and a `_CN` version side by side. Check first whether that folder already has an established convention — for example existing notes sitting in a `文献总结/` subfolder rather than beside the PDFs — and follow it. If overwriting an existing note, check its current modification time first and guard the write against a conflicting concurrent edit — the user may have opened the file to leave comments since you last touched it.
 
 ## Batch mode: several papers in one request
 
@@ -216,6 +218,8 @@ When the user attaches a docx with their own review comments (e.g. from WPS), ex
 This skill is published as a Claude plugin marketplace, so the skill folder sits
 a few levels down. The skill itself is the innermost folder — the one holding
 `SKILL.md` — and is self-contained: copying just that folder installs everything.
+The same plugin also carries `literature-quick-review-note-en`, the English-output
+sibling: same rules, same formatting, same scripts (one CLI default differs).
 
 ```
 <repository root>/
@@ -224,7 +228,8 @@ a few levels down. The skill itself is the innermost folder — the one holding
 ├── .claude-plugin/marketplace.json    — makes the repo installable as a marketplace
 └── plugins/lr-note/
     ├── .claude-plugin/plugin.json     — plugin manifest (name, version, author)
-    └── skills/literature-quick-review-note/   ← the skill folder
+    ├── skills/literature-quick-review-note-en/   — English-output sibling
+    └── skills/literature-quick-review-note-cn/   ← this skill folder
         ├── SKILL.md                   — this file
         ├── README.md                  — full documentation for users of the skill
         ├── CHANGELOG.md               — what changed in each version, and why

@@ -1,0 +1,8 @@
+{
+  "name": "literature-quick-review-note-cn-scripts",
+  "private": true,
+  "description": "docx-js build helpers for the literature-quick-review-note-cn skill",
+  "dependencies": {
+    "docx": "^9.7.1"
+  }
+}

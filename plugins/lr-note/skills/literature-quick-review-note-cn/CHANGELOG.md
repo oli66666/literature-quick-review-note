@@ -15,6 +15,30 @@ skill rather than a library:
   output without reshaping it.
 - **PATCH** — a bug fix, a wording correction, or a documentation change.
 
+## [2.0.0] — 2026-09-15
+
+A major version because two things users rely on change: how the skill is
+invoked, and what the note file is called. The note's content and formatting
+are unchanged.
+
+### Changed
+
+- **Renamed** from `literature-quick-review-note` to
+  `literature-quick-review-note-cn`, because the plugin now also ships an
+  English-output sibling, `literature-quick-review-note-en`. The Claude Code
+  invocation becomes `/lr-note:literature-quick-review-note-cn`. An account
+  skill uploaded under the old name is not renamed by this release; upload the
+  new ZIP and remove the old skill, or both will trigger.
+- **Note filenames now carry a `_CN` suffix** (`Smith2024.pdf` →
+  `Smith2024_CN.docx`), matching the sibling's `_EN`, so a Chinese and an
+  English note on the same paper cannot overwrite each other. Notes made with
+  1.x have no suffix; the skill now points such a file out instead of silently
+  writing a second one beside it.
+- **The description states when this skill applies versus the English one**:
+  an output language the user names explicitly wins, otherwise the note follows
+  the language of the request. Before, a Chinese request for an English note
+  had nothing to route it away from this skill.
+
 ## [1.0.0] — 2026-09-14
 
 First public release. The skill had been in private use for some time; this

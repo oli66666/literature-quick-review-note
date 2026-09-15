@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "anchor": "distilled from the original content rather than translated sentence by sentence",
+    "text": "Example comment: a genuine comment goes here — your own analysis, a comparison with real literature, or an observation about the paper's structure or argument logic. Every citation must be real and verifiable. For example, a methodological cross-reference might read: this note's use of 'trustworthiness' maps onto the four criteria proposed by Lincoln and Guba (1985, Naturalistic Inquiry, Sage). Always mark this clearly as an addition by the note-taker — the original paper does not argue this."
+  },
+  {
+    "id": 1,
+    "anchor": "When the content is itself comparative",
+    "text": "Example comment: an anchor must fall entirely within a single formatting run — either entirely inside one **bold** span, or entirely within a plain-text sentence with no inline markers. A string straddling a bold/plain boundary won't match a single run, and the script will raise a clear error instead of silently misplacing the comment. Also note: the comment body is plain text — **bold**, *italic*, ==highlight== markers do not work here; the script strips the marker characters automatically and prints a note in the terminal, keeping the words. Use wording or quotation marks instead when you need emphasis."
+  }
+]

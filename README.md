@@ -102,8 +102,8 @@ does not update itself.
 Chat does not install from a repository; it takes an uploaded ZIP, one per
 skill. Code execution must be turned on in your settings.
 
-1. Download `literature-quick-review-note-cn-skill-v2.0.0.zip` and/or
-   `literature-quick-review-note-en-skill-v1.0.0.zip` from the
+1. Download the `literature-quick-review-note-cn-skill-…zip` (Chinese) and/or
+   `literature-quick-review-note-en-skill-…zip` (English) file from the
    [latest release](../../releases/latest).
 2. Go to [claude.ai/customize/skills](https://claude.ai/customize/skills) →
    **+** → **Create skill** → **Upload a skill**, and upload each file.

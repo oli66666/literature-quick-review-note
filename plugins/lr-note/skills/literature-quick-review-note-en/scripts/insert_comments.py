@@ -16,6 +16,12 @@ happens exactly at those boundaries). The script verifies the substring is
 unique in the document before using it, and fails loudly (rather than
 silently anchoring to the wrong spot) if it is not found or not unique.
 
+The comment range covers exactly the anchor text, not the whole run around
+it: the run is split into before / anchor / after runs that keep the same
+formatting, so a short anchor such as "ICC2 = .64" highlights just that
+phrase in Word. A run with an unusual structure (more than one text element,
+tabs, breaks) is left whole and the entire run is anchored instead.
+
 Usage:
     python3 insert_comments.py input.docx comments.json [-o output.docx] [--author NAME]
 
@@ -98,6 +104,37 @@ def find_run_span(xml: str, needle: str) -> tuple[int, int]:
     return run_start, run_end
 
 
+RUN_PARTS_RE = re.compile(
+    r"^(<w:r(?:\s[^>]*)?>)((?:<w:rPr>.*?</w:rPr>|<w:rPr/>)?)(<w:t(?:\s[^>]*)?>)([^<]*)</w:t></w:r>$",
+    re.S,
+)
+
+
+def split_run_at_anchor(run_xml: str, needle: str) -> tuple[str, str, str]:
+    """Split one run into (before, anchor, after) runs so a comment range can
+    cover exactly `needle` instead of the whole run.
+
+    Each piece keeps the run's own properties. Pieces with no text are
+    returned as empty strings. If the run is not the simple
+    <w:r><w:rPr/>?<w:t>text</w:t></w:r> shape, or `needle` is not inside its
+    text, the run is returned unsplit as the middle element (the previous,
+    whole-run behaviour)."""
+    m = RUN_PARTS_RE.match(run_xml)
+    if not m:
+        return "", run_xml, ""
+    r_open, rpr, _t_open, text = m.group(1), m.group(2), m.group(3), m.group(4)
+    idx = text.find(needle)
+    if idx == -1:
+        return "", run_xml, ""
+
+    def piece(t: str) -> str:
+        if not t:
+            return ""
+        return f'{r_open}{rpr}<w:t xml:space="preserve">{t}</w:t></w:r>'
+
+    return piece(text[:idx]), piece(needle), piece(text[idx + len(needle):])
+
+
 def ensure_comments_infrastructure(parts: dict) -> None:
     """Mutates `parts` (path -> str content) in place so the document has a
     valid, registered word/comments.xml, creating it if necessary."""
@@ -172,7 +209,27 @@ def build_comment_xml(cid: int, author: str, initials: str, date: str, text: str
     )
 
 
+def check_distinct_anchors(comments: list) -> None:
+    """Refuse two comments that share the same anchor text.
+
+    Two comments on one identical span give the reader no way to tell which
+    remark belongs to which point, and almost always mean the anchors were
+    chosen too broadly (a whole paragraph instead of the phrase or number a
+    comment is about). Fail loudly so the anchors get narrowed.
+    """
+    seen: dict[str, int] = {}
+    for c in comments:
+        anchor = c["anchor"].strip()
+        if anchor in seen:
+            raise RuntimeError(
+                f"comments {seen[anchor]} and {c['id']} use the same anchor {anchor[:40]!r} — "
+                "anchor each comment to the specific phrase or number it discusses"
+            )
+        seen[anchor] = c["id"]
+
+
 def insert_comments(input_path: Path, comments: list, output_path: Path, default_author: str, default_initials: str) -> None:
+    check_distinct_anchors(comments)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         with zipfile.ZipFile(input_path) as zin:
@@ -219,6 +276,8 @@ def insert_comments(input_path: Path, comments: list, output_path: Path, default
 
             run_start, run_end = find_run_span(doc_xml, anchor)
             before, run_xml, after = doc_xml[:run_start], doc_xml[run_start:run_end], doc_xml[run_end:]
+            pre_run, run_xml, post_run = split_run_at_anchor(run_xml, anchor)
+            before, after = before + pre_run, post_run + after
             range_start = f'<w:commentRangeStart w:id="{cid}"/>'
             range_end = (
                 f'<w:commentRangeEnd w:id="{cid}"/>'

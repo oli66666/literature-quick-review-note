@@ -72,6 +72,8 @@ When both are installed, the choice between them follows one rule, written into 
 
 Note files are named after the paper with a language suffix: `Smith2024_CN.docx` here, `Smith2024_EN.docx` from the English skill, so the two never overwrite each other.
 
+Technical terms and core expressions are written as the paper's English wording followed by the Chinese in parentheses, every time they appear, e.g. `climate for inclusion(包容氛围)`, so the exact English term is always at hand for searching, quoting and citing.
+
 ## Requirements
 
 - Node.js and the `docx` npm package.

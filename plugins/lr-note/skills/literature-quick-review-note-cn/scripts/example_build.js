@@ -38,22 +38,22 @@ const bibRows = [
   ["发表年份", "2025"],
   ["发表期刊", "Author One, A. and Author Two, B. (2025) 'Example Paper Title', Journal of Examples, 1(1), pp. 1-20."],
   ["DOI", "10.0000/example.doi"],
-  ["所属领域", "示例领域一(example field one)、示例领域二(example field two)、示例领域三(example field three)。"],
+  ["所属领域", "example field one(示例领域一)、example field two(示例领域二)、example field three(示例领域三)。"],
   ["论文类型", "Empirical, qualitative research article."],
-  ["理论框架", "示例理论(Example Theory; Someone, 2000)。"],
+  ["理论框架", "Example Theory(示例理论; Someone, 2000)。"],
 ];
 
 const themeRows = [
   ["主题名称", "描述", true],
-  ["示例主题一", "对示例主题一的简要描述。", false],
-  ["示例主题二", "对示例主题二的简要描述。", false],
+  ["example theme one(示例主题一)", "对 example theme one(示例主题一)的简要描述。", false],
+  ["example theme two(示例主题二)", "对 example theme two(示例主题二)的简要描述。", false],
 ];
 
 // gridRow handles any number of columns — the first row here is the header.
 const gridRows = [
   ["维度", "示例组 A", "示例组 B"],
-  ["样本量", "n = 16", "n = 11"],
-  ["就业状况", "失业为主", "在业为主"],
+  ["sample size(样本量)", "n = 16", "n = 11"],
+  ["employment status(就业状况)", "失业为主", "在业为主"],
 ];
 
 const children = [];
@@ -70,16 +70,16 @@ children.push(P("发表平台: 期刊简介与 Scimago 分区信息。==这一�
 
 children.push(H("一、研究背景与研究问题(原文 pp.1–5)", 2));
 children.push(H("1.1 子标题(原文 pp.1–3)", 3));
-children.push(P("**核心论点:一句话概括。** 一到两句话的展开说明,基于原文内容进行提炼,而不是逐句翻译。行内可用的标记只有三种:**加粗**、*斜体*(用于术语或期刊名)、==高亮==。"));
+children.push(P("**核心论点:一句话概括。** 一到两句话的展开说明,基于原文内容进行提炼,而不是逐句翻译。专业术语和核心表达写成 key construct(核心构念)这样的英文原文加中文括号,每次出现都这样写。行内可用的标记只有三种:**加粗**、*斜体*(用于期刊名)、==高亮==。"));
 
 children.push(H("二、研究方法(原文 pp.5–8)", 2));
-children.push(P("**研究设计:方法名称。** 简要说明为何采用该方法、样本与数据收集方式。"));
+children.push(P("**研究设计:example method(示例方法)。** 简要说明为何采用 example method(示例方法)、样本与数据收集方式。"));
 
 children.push(H("三、研究发现(原文 pp.8–14)", 2));
 children.push(P("数据共生成 N 个主题,原文表 X 的界定复制如下:"));
 children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, borders: TABLE_BORDERS, rows: themeRows.map(([n, d, h]) => themeRow(n, d, h)) }));
 children.push(new Paragraph({ text: "", spacing: { after: 160 } }));
-children.push(H("3.1 示例主题一(原文 pp.8–10)", 3));
+children.push(H("3.1 example theme one(示例主题一)(原文 pp.8–10)", 3));
 children.push(P("**核心机制:一句话概括机制。** 一到两句话展开。全文至多保留一条直接引用,用 Quote() 排成缩进引文块:"));
 children.push(Quote("「这里是全文唯一的一条直接引用,只在转述会损失原话力量时才使用。」(受访者代号,身份标签)"));
 

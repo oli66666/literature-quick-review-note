@@ -15,6 +15,38 @@ skill rather than a library:
   output without reshaping it.
 - **PATCH** — a bug fix, a wording correction, or a documentation change.
 
+## [3.0.0] — 2026-09-15
+
+A major version because new notes read differently from 2.x notes: technical
+terms now carry their English original throughout. Structure, formatting and
+file naming are unchanged.
+
+### Changed
+
+- **Technical terms and core expressions are written as `English(中文)` at
+  every occurrence**, e.g. `climate for inclusion(包容氛围)`,
+  `diversity management(多元化管理)`, using the paper's own English wording
+  and one consistent Chinese rendering per term. This applies to headings,
+  body text, tables, 影响力评价, 评述 and margin comments; the 所属领域 and
+  理论框架 rows now use the same order. Previously terms appeared in Chinese
+  only, or with the English after the Chinese in a few table rows, which made
+  it hard to find the matching wording in the English paper or to cite it.
+- **A comment now highlights only its anchor text.** `insert_comments.py`
+  used to wrap the whole run containing the anchor, and in a docx-js document
+  the plain text of a paragraph is usually one run, so even a short anchor
+  highlighted the entire paragraph. It now splits that run into before /
+  anchor / after runs with the same formatting. A first real-paper test had six
+  of nine comments covering whole paragraphs, which left the reader guessing
+  what each remark referred to. Runs with an unusual structure are still
+  anchored whole rather than guessed at.
+- **Comment anchors must be specific**: the shortest unique phrase, number or
+  term the comment discusses, and never the same anchor for two comments.
+  `insert_comments.py` refuses duplicate anchors, and the verification pass
+  checks both points. `test_scripts.py` covers the run splitting and the
+  duplicate check (29 checks).
+- The placeholder example (`example_build.js`, `example_comments.json`,
+  `docs/example.png`) follows the new term format.
+
 ## [2.0.0] — 2026-09-15
 
 A major version because two things users rely on change: how the skill is

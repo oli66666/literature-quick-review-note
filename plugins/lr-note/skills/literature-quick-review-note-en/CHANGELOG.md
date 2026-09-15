@@ -15,6 +15,28 @@ skill rather than a library:
   output without reshaping it.
 - **PATCH** — a bug fix, a wording correction, or a documentation change.
 
+## [1.1.0] — 2026-09-15
+
+### Changed
+
+- **A comment now highlights only its anchor text.** `insert_comments.py`
+  used to wrap the whole run containing the anchor, and in a docx-js document
+  the plain text of a paragraph is usually one run, so even a short anchor
+  highlighted the entire paragraph. It now splits that run into before /
+  anchor / after runs with the same formatting. A first real-paper test had six
+  of nine comments covering whole paragraphs, which left the reader guessing
+  what each remark referred to. Runs with an unusual structure are still
+  anchored whole rather than guessed at.
+- **Comment anchors must be specific**: the shortest unique phrase, number or
+  term the comment discusses, and never the same anchor for two comments.
+  `insert_comments.py` refuses duplicate anchors, and the verification pass
+  checks both points. `test_scripts.py` covers the run splitting and the
+  duplicate check (29 checks). The scripts stay identical to the
+  Chinese-output skill's apart from the `--author` default.
+- The placeholder example (`example_comments.json`, `docs/example.png`)
+  demonstrates a short anchor; the screenshot is re-rendered at higher
+  resolution in the same two-page layout as the Chinese skill's.
+
 ## [1.0.0] — 2026-09-15
 
 First release of the English-output sibling, shipped in `lr-note` plugin

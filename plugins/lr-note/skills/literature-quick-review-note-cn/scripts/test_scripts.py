@@ -192,6 +192,33 @@ def test_strip_highlightcs(sh, tmp: Path) -> None:
     check("a clean file is still written", clean_dst.exists(), True)
 
 
+def test_check_distinct_anchors(ic) -> None:
+    f = ic.check_distinct_anchors
+    distinct = [{"id": 0, "anchor": "ICC2 = .64"}, {"id": 1, "anchor": "r = .79"}]
+    check("distinct anchors pass", f(distinct), None)
+    same = [{"id": 0, "anchor": "同一段文字"}, {"id": 1, "anchor": "同一段文字 "}]
+    check_raises("two comments on the same anchor raise", lambda: f(same), "same anchor")
+
+
+def test_split_run_at_anchor(ic) -> None:
+    f = ic.split_run_at_anchor
+    bold = '<w:r><w:rPr><w:b/></w:rPr><w:t xml:space="preserve">{}</w:t></w:r>'
+
+    pre, mid, post = f(bold.format("前半部分ICC2 = .64后半部分"), "ICC2 = .64")
+    check("middle split: the anchor run holds only the anchor", mid, bold.format("ICC2 = .64"))
+    check("middle split: text before the anchor keeps its formatting", pre, bold.format("前半部分"))
+    check("middle split: text after the anchor keeps its formatting", post, bold.format("后半部分"))
+
+    pre, mid, post = f(RUN.format("整段文字"), "整段文字")
+    check("an anchor equal to the whole run needs no split", (pre, post), ("", ""))
+
+    pre, mid, post = f(RUN.format("开头就是锚点,后面还有"), "开头就是锚点")
+    check("an anchor at the start leaves no empty run before it", pre, "")
+
+    odd = '<w:r><w:t>甲</w:t><w:tab/><w:t>乙</w:t></w:r>'
+    check("an unusual run is anchored whole rather than guessed at", f(odd, "甲"), ("", odd, ""))
+
+
 # ---------------------------------------------------------------------------
 
 def main() -> int:
@@ -202,6 +229,8 @@ def main() -> int:
 
     test_strip_inline_markers(ic)
     test_find_run_span(ic)
+    test_check_distinct_anchors(ic)
+    test_split_run_at_anchor(ic)
     with tempfile.TemporaryDirectory() as d:
         test_strip_highlightcs(sh, Path(d))
 
